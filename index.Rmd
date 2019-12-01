@@ -1,0 +1,22 @@
+---
+title: "Plotly & RMarkdown Course Project"
+author: "Ellen Bayens"
+date: "1-12-2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+## Concerts of Amsterdam Wind Quintet
+
+Here you can find the number of concerts given by the Amsterdam Wind Quintet in the past 4 years. 
+
+```{r cars}
+library(plotly)
+mydata <- read.csv("AWQconcerten.csv", header = TRUE, sep = ";")
+
+plot_ly(x=mydata$Jaar, type = "histogram")
+```
+
