@@ -1,22 +1,33 @@
 ---
 title: "Plotly & RMarkdown Course Project"
 author: "Ellen Bayens"
-date: "1-12-2019"
+date: "4-12-2019"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE)
 ```
 
-## Concerts of Amsterdam Wind Quintet
+## Weight and miles per gallon compared to number of cylinders
 
-Here you can find the number of concerts given by the Amsterdam Wind Quintet in the past 4 years. 
+As we see in the plots, both weigth and miles per gallon are dependant of the number of cylinders.
+The weight is directly dependant on the number of cylinder, but the miles per gallon is inversely proportional.  
 
 ```{r cars}
+library(dplyr)
 library(plotly)
-mydata <- read.csv("AWQconcerten.csv", header = TRUE, sep = ";")
+mydata <- mtcars %>%
+  mutate(cyl = as.factor(cyl))
 
-plot_ly(x=mydata$Jaar, type = "histogram")
+
+plot_ly(mydata, y = ~mpg, color = ~cyl, type = "box") %>%
+  layout(title = 'Miles per gallon compared to number of cylinders',
+         xaxis = list(title = 'Number of cylinders'),
+         yaxis = list(title = 'Miles per gallon'))
+plot_ly(mydata, y = ~wt, color = ~cyl, type = "box", text = "Cylinders") %>%
+  layout(title = "Weight compared to number of cylinders", 
+         xaxis = list(title = "Number of cylinder"),
+         yaxis = list(title = "Weight"))
 ```
 
